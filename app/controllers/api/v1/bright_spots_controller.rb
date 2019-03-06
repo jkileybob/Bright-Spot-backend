@@ -5,6 +5,16 @@ class Api::V1::BrightSpotsController < ApplicationController
     render json: BrightSpot.all
   end
 
+  def show
+    render json: {
+      bright_spot: BrightSpot.find(params[:id])
+    }
+  end
+
+  def create
+    render json: BrightSpot.create(bright_spot_params)
+  end
+
   def update
     @bright_spot.update(bright_spot_params)
     if @bright_spot.save
@@ -13,6 +23,11 @@ class Api::V1::BrightSpotsController < ApplicationController
       render json: { errors: @bright_spot.errors.full_messages }, status: :unprocessible_entity
     end
   end
+
+  def destroy
+    render json: BrightSpot.find(params[:id]).destroy
+  end
+
 
   private
 

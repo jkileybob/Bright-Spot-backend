@@ -5,6 +5,16 @@ class Api::V1::PostsController < ApplicationController
   render json: @posts
   end
 
+  def show
+    render json: {
+      post: Post.find(params[:id])
+    }
+  end
+
+  def create
+    render json: Post.create(post_params)
+  end
+
   def update
   @post.update(post_params)
   if @post.save
@@ -12,6 +22,10 @@ class Api::V1::PostsController < ApplicationController
   else
     render json: { errors: @post.errors.full_messages }, status: :unprocessible_entity
   end
+  end
+
+  def destroy
+    render json: Post.find(params[:id]).destroy
   end
 
   private
